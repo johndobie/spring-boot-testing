@@ -35,4 +35,3 @@ jobs:
       with:
         name: data-directory
         path: target/reports/
-              target/surefire-reports/
