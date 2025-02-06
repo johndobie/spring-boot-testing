@@ -1,0 +1,25 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: h2
+    properties:
+      hibernate.default_schema: cheatsheet
+  flyway:
+    create-schemas: true
+    schemas: cheatsheet
+    enabled: true
+  datasource:
+    url: jdbc:h2:mem:cheatsheet;TRACE_LEVEL_FILE=4
+    driver-class-name: org.h2.Driver
+    username:
+  h2:
+    console:
+      enabled: true
+
+
+logging:
+  level:
+    org.hibernate: INFO
+    org.springframework.web: DEBUG
+

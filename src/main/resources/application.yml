@@ -1,0 +1,6 @@
+spring.application.name: cheatsheet
+server:
+  servlet:
+    context-path: /cheatsheet
+
+management.endpoints.web.exposure.include: info,health

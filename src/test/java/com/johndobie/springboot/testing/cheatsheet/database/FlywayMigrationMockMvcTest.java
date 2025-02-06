@@ -1,0 +1,34 @@
+package com.johndobie.springboot.testing.cheatsheet.database;
+
+import com.johndobie.springboot.testing.cheatsheet.util.MockMvcBaseTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+@ActiveProfiles("test")
+public class FlywayMigrationMockMvcTest extends MockMvcBaseTest {
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Test
+    public void testFlywayMigrations() throws Exception {
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM cheatsheet.message")) {
+
+            assertThat(resultSet.next()).isTrue();
+            int count = resultSet.getInt(1);
+            assertThat(count).isEqualTo(5);
+        }
+    }
+}
