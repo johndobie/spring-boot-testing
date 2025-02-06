@@ -34,4 +34,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: data-directory
-        path: target/reports/
+        path: |
+              target/reports/
+              target/surefire-reports/
