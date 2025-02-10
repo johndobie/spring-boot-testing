@@ -16,19 +16,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class FlywayMigrationMockMvcTest extends MockMvcBaseTest {
-
+    
+    private static final String QUERY = "SELECT COUNT(*) FROM cheatsheet.message";
+    
     @Autowired
     private DataSource dataSource;
 
     @Test
     public void testFlywayMigrations() throws Exception {
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM cheatsheet.message")) {
-
-            assertThat(resultSet.next()).isTrue();
-            int count = resultSet.getInt(1);
-            assertThat(count).isEqualTo(5);
+        try (Connection connection = dataSource.getConnection();    Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(QUERY)) {
+                assertThat(resultSet.next()).isTrue();
+                int count = resultSet.getInt(1);
+                assertThat(count).isEqualTo(5);
         }
     }
 }
