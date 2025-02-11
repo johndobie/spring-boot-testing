@@ -1,11 +1,12 @@
 package com.johndobie.springboot.testing.cheatsheet.controller;
 
 import com.johndobie.springboot.testing.cheatsheet.service.PlaceholderService;
-import com.johndobie.springboot.testing.cheatsheet.util.MockMvcBaseTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -16,7 +17,10 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(PlaceholderController.class)
 @AutoConfigureMockMvc(printOnlyOnFailure = false)
-public class PlaceholderControllerMockMvcTest extends MockMvcBaseTest {
+public class PlaceholderControllerMockMvcTest {
+    
+    @Autowired
+    private MockMvc mockMvc;
    
     @MockitoBean
     private PlaceholderService placeholderService;

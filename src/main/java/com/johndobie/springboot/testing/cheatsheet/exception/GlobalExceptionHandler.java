@@ -21,32 +21,18 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
     
-    private static String getCode(final ConstraintViolation<?> violation) {
-        return violation.getConstraintDescriptor()
-                        .getAnnotation()
-                        .annotationType()
-                        .getSimpleName();
+    @ExceptionHandler(value = {Exception.class, Throwable.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponseModel handleException(Exception e) {
+        ErrorModel errorModel = new ErrorModel("server_error", e.getMessage(), e.getClass().getSimpleName());
+        return new ErrorResponseModel(ErrorType.SERVER.toString(), List.of(errorModel));
     }
     
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ErrorResponseModel handleException(MethodArgumentNotValidException e) {
+    public ErrorResponseModel handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<ErrorModel> errorModels = processFieldErrors(e);
         return new ErrorResponseModel(ErrorType.VALIDATION.toString(), errorModels);
-    }
-    
-    private List<ErrorModel> processFieldErrors(MethodArgumentNotValidException e) {
-        List<ErrorModel> validationErrorModels = new ArrayList<>();
-        for (FieldError fieldError : e.getBindingResult()
-                                      .getFieldErrors()) {
-            String code = fieldError.getCode();
-            String source = fieldError.getObjectName() + "/" + fieldError.getField();
-            String detail = fieldError.getField() + " " + fieldError.getDefaultMessage();
-            
-            ErrorModel validationErrorModel = new ErrorModel(code, detail, source);
-            validationErrorModels.add(validationErrorModel);
-        }
-        return validationErrorModels;
     }
     
     @ExceptionHandler(value = ConstraintViolationException.class)
@@ -56,18 +42,45 @@ public class GlobalExceptionHandler {
         return new ErrorResponseModel(ErrorType.VALIDATION.toString(), validationErrorModels);
     }
     
+    private List<ErrorModel> processFieldErrors(MethodArgumentNotValidException e) {
+        List<ErrorModel> validationErrorModels = new ArrayList<>();
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            ErrorModel validationErrorModel = getErrorModelFromFieldError(fieldError);
+            validationErrorModels.add(validationErrorModel);
+        }
+        return validationErrorModels;
+    }
+    
     private List<ErrorModel> processConstraintViolations(ConstraintViolationException e) {
-        List<ErrorModel> errorModels = new ArrayList<ErrorModel>();
+        List<ErrorModel> errorModels = new ArrayList<>();
         for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
-            
-            String code = getCode(violation);
-            String source = violation.getPropertyPath().toString();
-            String detail = violation.getMessage();
-            
-            ErrorModel errorModel = new ErrorModel(code, detail, source);
+            ErrorModel errorModel = getErrorModelFromConstraintViolation(violation);
             errorModels.add(errorModel);
         }
         return errorModels;
+    }
+    
+    private static ErrorModel getErrorModelFromFieldError(final FieldError fieldError) {
+        String code = fieldError.getCode();
+        String source = fieldError.getObjectName() + "/" + fieldError.getField();
+        String detail = fieldError.getField() + " " + fieldError.getDefaultMessage();
+        
+        return new ErrorModel(code, detail, source);
+    }
+    
+    private ErrorModel getErrorModelFromConstraintViolation(final ConstraintViolation<?> violation) {
+        String code = getCode(violation);
+        String source = violation.getPropertyPath().toString();
+        String detail = violation.getMessage();
+        
+        return new ErrorModel(code, detail, source);
+    }
+    
+    private static String getCode(final ConstraintViolation<?> violation) {
+        return violation.getConstraintDescriptor()
+                        .getAnnotation()
+                        .annotationType()
+                        .getSimpleName();
     }
     
 }

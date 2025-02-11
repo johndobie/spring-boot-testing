@@ -1,12 +1,12 @@
 package com.johndobie.springboot.testing.cheatsheet.controller;
 
-import com.johndobie.springboot.testing.cheatsheet.util.IntegrationBaseTest;
+import com.johndobie.springboot.testing.cheatsheet.util.RestAssuredBaseTest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasSize;
 
-public class PlaceholderControllerRestAssuredTest extends IntegrationBaseTest {
+public class PlaceholderControllerRestAssuredTest extends RestAssuredBaseTest {
     
     @Test
     public void testGetPosts() {

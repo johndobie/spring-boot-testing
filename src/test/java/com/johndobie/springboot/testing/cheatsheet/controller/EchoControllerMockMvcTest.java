@@ -4,11 +4,13 @@ import com.johndobie.springboot.testing.cheatsheet.exception.ErrorModel;
 import com.johndobie.springboot.testing.cheatsheet.exception.ErrorResponseModel;
 import com.johndobie.springboot.testing.cheatsheet.exception.ErrorType;
 import com.johndobie.springboot.testing.cheatsheet.model.Message;
-import com.johndobie.springboot.testing.cheatsheet.util.MockMvcBaseTest;
 import com.johndobie.springboot.testing.cheatsheet.util.TestDataHelper;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
@@ -21,7 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(EchoController.class)
-public class EchoControllerMockMvcTest extends MockMvcBaseTest {
+@AutoConfigureMockMvc
+public class EchoControllerMockMvcTest {
+    
+    @Autowired
+    private MockMvc mockMvc;
     
     @Test
     public void testEcho() throws Exception {

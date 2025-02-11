@@ -1,9 +1,8 @@
 package com.johndobie.springboot.testing.cheatsheet.repository;
 
 import com.johndobie.springboot.testing.cheatsheet.model.Message;
-import com.johndobie.springboot.testing.cheatsheet.util.MockMvcBaseTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.Optional;
@@ -12,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-public class MessageRepositoryMockedDatabaseMockMvcBaseTest extends MockMvcBaseTest {
+@DataJpaTest
+public class MessageRepositoryMockedDatabaseMockMvcBaseTest {
 
     @MockitoBean
     private MessageRepository messageRepository;

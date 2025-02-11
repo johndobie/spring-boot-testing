@@ -14,7 +14,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.MediaType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class IntegrationBaseTest {
+public class RestAssuredBaseTest {
     
     private static final String BASE_PATH = "http://localhost";
     
@@ -24,14 +24,17 @@ public class IntegrationBaseTest {
     @Value("${server.servlet.context-path}")
     private String contextPath;
     
+    protected String getBaseUrl() {
+        return BASE_PATH + ":" + localServerPort + contextPath;
+    }
+    
+    
     @Autowired
     protected RestTemplateBuilder restTemplateBuilder;
     
     protected RequestSpecification requestSpecification;
     
-    protected String getBaseUrl() {
-        return BASE_PATH + ":" + localServerPort + contextPath;
-    }
+   
     
     @BeforeEach
     public void setUp() {
