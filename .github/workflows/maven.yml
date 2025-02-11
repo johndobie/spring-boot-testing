@@ -37,3 +37,4 @@ jobs:
         path: |
               target/reports/
               target/surefire-reports/
+              target/site/
