@@ -25,7 +25,7 @@ public class FlywayMigrationMockMvcTest {
              ResultSet resultSet = statement.executeQuery(QUERY)) {
                 assertThat(resultSet.next()).isTrue();
                 int count = resultSet.getInt(1);
-                assertThat(count).isEqualTo(0);
+                assertThat(count).isEqualTo(1);
         }
     }
 }

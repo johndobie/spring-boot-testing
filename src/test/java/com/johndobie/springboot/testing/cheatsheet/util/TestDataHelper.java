@@ -24,6 +24,11 @@ public class TestDataHelper {
     public static final long POST_ID_1 = 1L;
     public static final String POST_TEST_TITLE_1 = "Post Test Title 1";
     public static final String POST_TEST_BODY_1 = "Post Test Body 1";
+    
+    public static final long POST_ID_1000 = 1000L;
+    public static final String POST_TEST_TITLE_1000 = "Post Test Title 1000";
+    public static final String POST_TEST_BODY_1000 = "Post Test Body 1000";
+    
     public static final String UPDATED_POST_TITLE = "Updated Post Title";
     
     
@@ -63,4 +68,10 @@ public class TestDataHelper {
                    .title(POST_TEST_TITLE_1)
                    .body(POST_TEST_BODY_1)
                    .build();
+    
+    public static Post testPostOneThousand = Post.builder()
+                                         .id(POST_ID_1000)
+                                         .title(POST_TEST_TITLE_1000)
+                                         .body(POST_TEST_BODY_1000)
+                                         .build();
 }

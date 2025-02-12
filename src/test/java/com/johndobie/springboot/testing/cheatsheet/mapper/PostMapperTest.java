@@ -43,4 +43,16 @@ public class PostMapperTest {
         assertThat(posts.get(1).getTitle()).isEqualTo(remotePost2.getTitle());
         assertThat(posts.get(1).getBody()).isEqualTo(remotePost2.getBody());
     }
+    
+    @Test
+    public void testRemotePostToPostReturnsNull() {
+        Post post = postMapper.remotePostToPost(null);
+        assertThat(post).isNull();
+    }
+    
+    @Test
+    public void testRemotePostsToPosts_EmptyList() {
+        List<Post> posts = postMapper.remotePostsToPosts(null);
+        assertThat(posts).isNull();
+    }
 }

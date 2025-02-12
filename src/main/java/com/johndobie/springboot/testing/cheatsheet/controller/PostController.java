@@ -42,12 +42,12 @@ public class PostController {
         postService.deletePost(id);
     }
     
-    @GetMapping("/api/search")
+    @GetMapping("/api/content")
     public List<Post> getPostsByContentContaining(@RequestParam String keyword) {
         return postService.findPostByBodyContaining(keyword);
     }
     
-    @GetMapping("/subject")
+    @GetMapping("/api/title")
     public Post getPostsByTitle(@RequestParam String title) {
         return postService.findPostByTitle(title);
     }
