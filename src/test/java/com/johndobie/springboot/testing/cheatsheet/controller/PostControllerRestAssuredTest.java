@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasSize;
 
-public class PlaceholderControllerRestAssuredTest extends RestAssuredBaseTest {
+public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
     
     @Test
     public void testGetPosts() {

@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     database: h2
     properties:
       hibernate.default_schema: cheatsheet

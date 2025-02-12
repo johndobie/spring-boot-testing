@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class FlywayMigrationMockMvcTest {
     
-    private static final String QUERY = "SELECT COUNT(*) FROM cheatsheet.message";
+    private static final String QUERY = "SELECT COUNT(*) FROM cheatsheet.post";
     
     @Autowired
     private DataSource dataSource;
@@ -25,7 +25,7 @@ public class FlywayMigrationMockMvcTest {
              ResultSet resultSet = statement.executeQuery(QUERY)) {
                 assertThat(resultSet.next()).isTrue();
                 int count = resultSet.getInt(1);
-                assertThat(count).isEqualTo(5);
+                assertThat(count).isEqualTo(0);
         }
     }
 }

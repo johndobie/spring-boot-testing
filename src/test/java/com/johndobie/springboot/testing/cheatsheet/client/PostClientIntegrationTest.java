@@ -1,6 +1,6 @@
 package com.johndobie.springboot.testing.cheatsheet.client;
 
-import com.johndobie.springboot.testing.cheatsheet.remote.client.PlaceholderClient;
+import com.johndobie.springboot.testing.cheatsheet.remote.client.PostClient;
 import com.johndobie.springboot.testing.cheatsheet.remote.model.RemotePost;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class PlaceholderClientIntegrationTest {
+public class PostClientIntegrationTest {
     
     @Autowired
-    private PlaceholderClient placeholderClient;
+    private PostClient postClient;
     
     @Autowired
     private RestTemplate restTemplate;
     
     @Test
     public void testGetPosts() {
-        List<RemotePost> remotePosts = placeholderClient.getPosts();
+        List<RemotePost> remotePosts = postClient.getPosts();
         assertThat(remotePosts).isNotEmpty();
         assertThat(remotePosts.get(0).getId()).isNotNull();
         assertThat(remotePosts.get(0).getTitle()).isNotNull();

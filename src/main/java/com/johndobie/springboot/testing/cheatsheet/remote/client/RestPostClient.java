@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class RestPlaceholderClient implements PlaceholderClient {
+public class RestPostClient implements PostClient {
     
     private final RestTemplate restTemplate;
     
-    public RestPlaceholderClient(RestTemplate restTemplate) {
+    public RestPostClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
     

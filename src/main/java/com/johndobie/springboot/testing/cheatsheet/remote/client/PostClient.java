@@ -4,6 +4,6 @@ import com.johndobie.springboot.testing.cheatsheet.remote.model.RemotePost;
 
 import java.util.List;
 
-public interface PlaceholderClient {
+public interface PostClient {
     List<RemotePost> getPosts();
 }

@@ -1,6 +1,6 @@
 package com.johndobie.springboot.testing.cheatsheet.client;
 
-import com.johndobie.springboot.testing.cheatsheet.remote.client.PlaceholderClient;
+import com.johndobie.springboot.testing.cheatsheet.remote.client.PostClient;
 import com.johndobie.springboot.testing.cheatsheet.remote.model.RemotePost;
 import com.johndobie.springboot.testing.cheatsheet.util.TestDataHelper;
 import org.junit.jupiter.api.Test;
@@ -20,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
-@WebMvcTest(PlaceholderClient.class)
+@WebMvcTest(PostClient.class)
 @AutoConfigureMockMvc
-public class PlaceholderClientTest {
+public class PostClientTest {
     
     @Autowired
-    private PlaceholderClient placeholderClient;
+    private PostClient postClient;
     
     @MockitoBean
     private RestTemplate restTemplate;
@@ -36,7 +36,7 @@ public class PlaceholderClientTest {
         given(restTemplate.getForObject(anyString(), Mockito.<Class<RemotePost[]>>any()))
                 .willReturn(TestDataHelper.getRemotePosts());
         
-        List<RemotePost> remotePosts = placeholderClient.getPosts();
+        List<RemotePost> remotePosts = postClient.getPosts();
         assertThat(remotePosts).isNotEmpty();
         
         RemotePost remotePost = remotePosts.get(0);
@@ -52,7 +52,7 @@ public class PlaceholderClientTest {
                 .willThrow(new RestClientException("Error occurred"));
         
         assertThrows(RestClientException.class, () -> {
-            placeholderClient.getPosts();
+            postClient.getPosts();
         });
     }
 }
