@@ -1,9 +1,5 @@
 package com.johndobie.springboot.testing.cheatsheet.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,13 +13,8 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@Entity
 @Validated
 public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotBlank(message = "Content is mandatory and cannot be blank")
     @NotNull(message = "Content is mandatory and cannot be null")

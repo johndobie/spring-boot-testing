@@ -13,13 +13,13 @@ public class TestDataHelper {
     
     public static final String SAMPLE_TITLE_1 = "Sample Title 1";
     public static final String SAMPLE_BODY_1 = "Sample Body 1";
-    public static final int USER_ID_1 = 1;
-    public static final int ID_1 = 1;
+    public static final Long USER_ID_1 = 1L;
+    public static final Long ID_1 = 1L;
     
     public static final String SAMPLE_TITLE_2 = "Sample Title 2";
     public static final String SAMPLE_BODY_2 = "Sample Body 2";
-    public static final int USER_ID_2 = 2;
-    public static final int ID_2 = 2;
+    public static final Long USER_ID_2 = 2L;
+    public static final Long ID_2 = 2L;
     
     public static final long POST_ID_1 = 1L;
     public static final String POST_TEST_TITLE_1 = "Post Test Title 1";
@@ -31,8 +31,18 @@ public class TestDataHelper {
     
     public static final String UPDATED_POST_TITLE = "Updated Post Title";
     
-    
     public static final ObjectMapper objectMapper = new ObjectMapper();
+    
+    public static Post testPostOne = Post.builder()
+                                         .id(POST_ID_1)
+                                         .title(POST_TEST_TITLE_1)
+                                         .body(POST_TEST_BODY_1)
+                                         .build();
+    public static Post testPostOneThousand = Post.builder()
+                                                 .id(POST_ID_1000)
+                                                 .title(POST_TEST_TITLE_1000)
+                                                 .body(POST_TEST_BODY_1000)
+                                                 .build();
     
     public static Message getMessage(String content) {
         return Message.builder()
@@ -62,16 +72,4 @@ public class TestDataHelper {
                 new RemotePost(ID_2, SAMPLE_TITLE_2, SAMPLE_BODY_2, USER_ID_2)
         };
     }
-    
-    public static Post testPostOne = Post.builder()
-                   .id(POST_ID_1)
-                   .title(POST_TEST_TITLE_1)
-                   .body(POST_TEST_BODY_1)
-                   .build();
-    
-    public static Post testPostOneThousand = Post.builder()
-                                         .id(POST_ID_1000)
-                                         .title(POST_TEST_TITLE_1000)
-                                         .body(POST_TEST_BODY_1000)
-                                         .build();
 }

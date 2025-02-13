@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RemotePost {
-    private int id;
+    private Long id;
     private String title;
     private String body;
-    private int userId;
+    private Long userId;
 }

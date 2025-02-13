@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class EchoController {
 
-    public static final String ECHO_POST_ENDPOINT = "/echo";
+    public static final String ECHO_POST_ENDPOINT = "/api/echo";
 
     @PostMapping(ECHO_POST_ENDPOINT)
     public Message echo(@Valid @RequestBody Message message) {

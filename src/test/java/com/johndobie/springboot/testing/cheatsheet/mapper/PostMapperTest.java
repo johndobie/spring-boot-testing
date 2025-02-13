@@ -13,35 +13,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PostMapperTest {
     private final PostMapper postMapper = Mappers.getMapper(PostMapper.class);
     
+    private final RemotePost remotePost1 = new RemotePost(1L, "Remote Title 1", "Remote Body 1", 1L);
+    private final RemotePost remotePost2 = new RemotePost(2L, "Remote Title 2", "Remote Body 2", 2L);
+    
     @Test
     public void testRemotePostToPost() {
-        RemotePost remotePost = new RemotePost(1, "Remote Title", "Remote Body", 1);
-        Post post = postMapper.remotePostToPost(remotePost);
+        Post post = postMapper.remotePostToPost(remotePost1);
         
-        assertThat(post).isNotNull();
-        assertThat(post.getId()).isEqualTo(remotePost.getId());
-        assertThat(post.getTitle()).isEqualTo(remotePost.getTitle());
-        assertThat(post.getBody()).isEqualTo(remotePost.getBody());
+        assertThat(post).usingRecursiveComparison().isEqualTo(remotePost1);
     }
     
     @Test
     public void testRemotePostsToPosts() {
-        RemotePost remotePost1 = new RemotePost(1, "Remote Title 1", "Remote Body 1", 1);
-        RemotePost remotePost2 = new RemotePost(2, "Remote Title 2", "Remote Body 2", 2);
         List<RemotePost> remotePosts = Arrays.asList(remotePost1, remotePost2);
         
         List<Post> posts = postMapper.remotePostsToPosts(remotePosts);
         
         assertThat(posts).isNotNull();
         assertThat(posts).hasSize(2);
-        
-        assertThat(posts.get(0).getId()).isEqualTo(remotePost1.getId());
-        assertThat(posts.get(0).getTitle()).isEqualTo(remotePost1.getTitle());
-        assertThat(posts.get(0).getBody()).isEqualTo(remotePost1.getBody());
-        
-        assertThat(posts.get(1).getId()).isEqualTo(remotePost2.getId());
-        assertThat(posts.get(1).getTitle()).isEqualTo(remotePost2.getTitle());
-        assertThat(posts.get(1).getBody()).isEqualTo(remotePost2.getBody());
+        assertThat(posts.get(0)).usingRecursiveComparison().isEqualTo(remotePost1);
+        assertThat(posts.get(1)).usingRecursiveComparison().isEqualTo(remotePost2);
     }
     
     @Test
@@ -51,7 +42,7 @@ public class PostMapperTest {
     }
     
     @Test
-    public void testRemotePostsToPosts_EmptyList() {
+    public void testRemotePostsToPostsReturnsNull() {
         List<Post> posts = postMapper.remotePostsToPosts(null);
         assertThat(posts).isNull();
     }

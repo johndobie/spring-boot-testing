@@ -5,7 +5,7 @@ import com.johndobie.springboot.testing.cheatsheet.mapper.PostMapper;
 import com.johndobie.springboot.testing.cheatsheet.model.Post;
 import com.johndobie.springboot.testing.cheatsheet.remote.client.PostClient;
 import com.johndobie.springboot.testing.cheatsheet.remote.model.RemotePost;
-import com.johndobie.springboot.testing.cheatsheet.repository.PostRepository;
+import com.johndobie.springboot.testing.cheatsheet.database.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

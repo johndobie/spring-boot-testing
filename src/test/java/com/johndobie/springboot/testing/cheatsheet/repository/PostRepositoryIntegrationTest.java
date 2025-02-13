@@ -1,5 +1,6 @@
 package com.johndobie.springboot.testing.cheatsheet.repository;
 
+import com.johndobie.springboot.testing.cheatsheet.database.repository.PostRepository;
 import com.johndobie.springboot.testing.cheatsheet.model.Post;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;

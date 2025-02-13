@@ -5,13 +5,13 @@ import com.johndobie.springboot.testing.cheatsheet.mapper.PostMapper;
 import com.johndobie.springboot.testing.cheatsheet.model.Post;
 import com.johndobie.springboot.testing.cheatsheet.remote.client.PostClient;
 import com.johndobie.springboot.testing.cheatsheet.remote.model.RemotePost;
-import com.johndobie.springboot.testing.cheatsheet.repository.PostRepository;
+import com.johndobie.springboot.testing.cheatsheet.database.repository.PostRepository;
 import com.johndobie.springboot.testing.cheatsheet.util.TestDataHelper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class DatabasePostServiceTest {
     
     @Mock
@@ -33,11 +34,6 @@ public class DatabasePostServiceTest {
     
     @InjectMocks
     private DatabasePostService postService;
-    
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
     
     @Test
     public void testGetPosts() {
@@ -175,7 +171,7 @@ public class DatabasePostServiceTest {
     public void testSavePost_NullPost() {
         Post post = null;
         
-        when(postRepository.save(any(Post.class))).thenThrow(new IllegalArgumentException("Post cannot be null"));
+        when(postRepository.save(any())).thenThrow(new IllegalArgumentException("Post cannot be null"));
         
         try {
             postService.savePost(post);

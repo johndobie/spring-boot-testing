@@ -1,4 +1,4 @@
-package com.johndobie.springboot.testing.cheatsheet.repository;
+package com.johndobie.springboot.testing.cheatsheet.database.repository;
 
 import com.johndobie.springboot.testing.cheatsheet.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,7 +2,7 @@ package com.johndobie.springboot.testing.cheatsheet.service;
 
 import com.johndobie.springboot.testing.cheatsheet.exception.PostNotFoundException;
 import com.johndobie.springboot.testing.cheatsheet.model.Post;
-import com.johndobie.springboot.testing.cheatsheet.repository.PostRepository;
+import com.johndobie.springboot.testing.cheatsheet.database.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
