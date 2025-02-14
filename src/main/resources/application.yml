@@ -4,3 +4,14 @@ server:
     context-path: /cheatsheet
 
 management.endpoints.web.exposure.include: info,health
+
+
+springdoc:
+  version: openapi-3-0
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enable: true
+  show-actuator: true
+  packages-to-scan: com.johndobie.springboot.testing.cheatsheet.controller;

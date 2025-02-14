@@ -24,6 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class, Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponseModel handleException(Exception e) {
+        log.error(e.getMessage(), e);
         ErrorModel errorModel = new ErrorModel("server_error", e.getMessage(), e.getClass().getSimpleName());
         return new ErrorResponseModel(ErrorType.SERVER.toString(), List.of(errorModel));
     }
@@ -31,6 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ErrorResponseModel handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error(e.getMessage(), e);
         List<ErrorModel> errorModels = processFieldErrors(e);
         return new ErrorResponseModel(ErrorType.VALIDATION.toString(), errorModels);
     }
@@ -38,6 +40,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ErrorResponseModel handleException(ConstraintViolationException e) {
+        log.error(e.getMessage(), e);
         List<ErrorModel> validationErrorModels = processConstraintViolations(e);
         return new ErrorResponseModel(ErrorType.VALIDATION.toString(), validationErrorModels);
     }
