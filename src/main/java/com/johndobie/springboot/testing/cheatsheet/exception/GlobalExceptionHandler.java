@@ -45,6 +45,14 @@ public class GlobalExceptionHandler {
         return new ErrorResponseModel(ErrorType.VALIDATION.toString(), validationErrorModels);
     }
     
+    @ExceptionHandler(PostNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponseModel handlePostNotFoundException(PostNotFoundException e) {
+        log.error(e.getMessage(), e);
+        ErrorModel errorModel = new ErrorModel("not_found", e.getMessage(), e.getClass().getSimpleName());
+        return new ErrorResponseModel(ErrorType.CLIENT.toString(), List.of(errorModel));
+    }
+    
     private List<ErrorModel> processFieldErrors(MethodArgumentNotValidException e) {
         List<ErrorModel> validationErrorModels = new ArrayList<>();
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {

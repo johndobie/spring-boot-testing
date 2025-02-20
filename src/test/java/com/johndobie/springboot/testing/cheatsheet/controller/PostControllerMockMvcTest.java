@@ -1,5 +1,6 @@
 package com.johndobie.springboot.testing.cheatsheet.controller;
 
+import com.johndobie.springboot.testing.cheatsheet.exception.PostNotFoundException;
 import com.johndobie.springboot.testing.cheatsheet.model.Post;
 import com.johndobie.springboot.testing.cheatsheet.service.PostService;
 import org.junit.jupiter.api.Test;
@@ -112,5 +113,14 @@ public class PostControllerMockMvcTest {
                .andExpect(jsonPath("$.id").value(1L))
                .andExpect(jsonPath("$.title").value("Test Title"))
                .andExpect(jsonPath("$.body").value("Test Body"));
+    }
+    
+    @Test
+    public void testGetPostByIdNotFound() throws Exception {
+        when(postService.findPostById(1L)).thenThrow(new PostNotFoundException("Post not found with id 1"));
+        
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/1"))
+               .andExpect(MockMvcResultMatchers.status().isNotFound())
+               .andExpect(jsonPath("$.errors[0].detail").value("Post not found with id 1"));
     }
 }
