@@ -50,7 +50,7 @@ public class PostControllerMockMvcTest {
         when(postService.findPostById(1L)).thenReturn(testPostOne);
         
         MvcResult mvcResult = mockMvc.perform(get("/api/1"))
-                                     .andExpect(MockMvcResultMatchers.status().isOk())git
+                                     .andExpect(MockMvcResultMatchers.status().isOk())
                                      .andReturn();
         
         Post savedPost = readJsonAsObject(mvcResult.getResponse().getContentAsString(), Post.class);
