@@ -76,7 +76,7 @@ public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
         given(requestSpecification).contentType("application/json")
                                    .body(post)
                                    .when()
-                                   .put("/api/1")
+                                   .put("/api")
                                    .then()
                                    .statusCode(200)
                                    .body("id", equalTo(1))

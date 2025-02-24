@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Collections;
 
 import static com.johndobie.springboot.testing.cheatsheet.controller.PostController.POSTS_GET_ENDPOINT;
+import static com.johndobie.springboot.testing.cheatsheet.util.TestDataHelper.getJsonObjectAsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -72,9 +73,9 @@ public class PostControllerMockMvcTest {
         Post post = new Post(1L, "Updated Post", "Updated Body");
         when(postService.savePost(post)).thenReturn(post);
         
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/1")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api")
                                               .contentType(MediaType.APPLICATION_JSON)
-                                              .content("{\"title\": \"Updated Post\", \"body\": \"Updated Body\"}"))
+                                              .content(getJsonObjectAsString(post)))
                .andExpect(MockMvcResultMatchers.status().isOk())
                .andExpect(jsonPath("$.id").value(1L))
                .andExpect(jsonPath("$.title").value("Updated Post"))

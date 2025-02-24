@@ -31,9 +31,8 @@ public class PostController {
         return postService.savePost(post);
     }
     
-    @PutMapping("/api/{id}")
-    public Post updatePost(@PathVariable Long id, @RequestBody Post post) {
-        post.setId(id);
+    @PutMapping("/api")
+    public Post updatePost(@RequestBody Post post) {
         return postService.savePost(post);
     }
     
