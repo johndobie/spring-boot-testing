@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.johndobie.springboot.testing.cheatsheet.controller.PostController.*;
 import static com.johndobie.springboot.testing.cheatsheet.util.TestDataHelper.testPostOne;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -17,6 +18,9 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
     
+    public static final String UPDATED_POST = "Updated Post";
+    public static final String UPDATED_BODY = "Updated Body";
+    
     @BeforeEach
     public void setupDatabase() {
         postRepository.deleteAll();
@@ -24,9 +28,9 @@ public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
     }
     
     @Test
-    public void testGetPosts() {
+    public void testGetAllPosts() {
         List<Post> posts = given(requestSpecification).when()
-                                                      .get("/api/posts")
+                                                      .get(POSTS_GET_ALL_ENDPOINT)
                                                       .then()
                                                       .statusCode(200)
                                                       .extract()
@@ -71,17 +75,17 @@ public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
     
     @Test
     public void testUpdatePost() {
-        Post post = new Post(1L, "Updated Post", "Updated Body");
+        Post post = new Post(1L, UPDATED_POST, UPDATED_BODY);
         
         given(requestSpecification).contentType("application/json")
                                    .body(post)
                                    .when()
-                                   .put("/api")
+                                   .put(POSTS_UPDATE_ENDPOINT)
                                    .then()
                                    .statusCode(200)
                                    .body("id", equalTo(1))
-                                   .body("title", equalTo("Updated Post"))
-                                   .body("body", equalTo("Updated Body"));
+                                   .body("title", equalTo(UPDATED_POST))
+                                   .body("body", equalTo(UPDATED_BODY));
     }
     
     @Test
@@ -103,7 +107,7 @@ public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
         
         given(requestSpecification).param("keyword", "Test")
                                    .when()
-                                   .get("/api/content")
+                                   .get(POSTS_GET_BY_CONTENT_ENDPOINT)
                                    .then()
                                    .statusCode(200)
                                    .body("$", hasSize(1))
@@ -120,7 +124,7 @@ public class PostControllerRestAssuredTest extends RestAssuredBaseTest {
         
         Response response = given(requestSpecification).param("title", testPostOne.getTitle())
                                                        .when()
-                                                       .get("/api/title")
+                                                       .get(POSTS_GET_BY_TITLE_ENDPOINT)
                                                        .then()
                                                        .statusCode(200)
                                                        .extract()

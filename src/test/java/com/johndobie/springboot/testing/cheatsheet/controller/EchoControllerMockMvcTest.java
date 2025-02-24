@@ -93,8 +93,7 @@ public class EchoControllerMockMvcTest {
                                      .andExpect(status().is4xxClientError())
                                      .andReturn();
         
-        String responseBody = mvcResult.getResponse()
-                                       .getContentAsString();
+        String responseBody = mvcResult.getResponse().getContentAsString();
         
         ErrorResponseModel errorResponseModel = TestDataHelper.readJsonAsObject(responseBody, ErrorResponseModel.class);
         assertThat(errorResponseModel.type).isEqualTo(ErrorType.VALIDATION.toString());

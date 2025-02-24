@@ -38,6 +38,7 @@ public class TestDataHelper {
                                          .title(POST_TEST_TITLE_1)
                                          .body(POST_TEST_BODY_1)
                                          .build();
+    
     public static Post testPostOneThousand = Post.builder()
                                                  .id(POST_ID_1000)
                                                  .title(POST_TEST_TITLE_1000)
